@@ -1,219 +1,284 @@
-call plug#begin()
-" Цвета css
-Plug 'https://github.com/ap/vim-css-color'
-" Для python
-Plug 'https://github.com/davidhalter/jedi-vim'
-" Складывание
-Plug 'https://github.com/pseewald/vim-anyfold'
-" Вертикальные линии
-Plug 'https://github.com/Yggdroot/indentLine'
-" Работа с файлами
-Plug 'https://github.com/kien/ctrlp.vim'
-" Работа с текстом
-Plug 'https://github.com/easymotion/vim-easymotion'
-" Работа с git
-" Plug 'https://github.com/airblade/vim-gitgutter'
-" Коментирование
-Plug 'https://github.com/tpope/vim-commentary'
-" Работа с html
-Plug 'https://github.com/mattn/emmet-vim'
-" Работа с markdown
-Plug 'https://github.com/preservim/vim-markdown'
-Plug 'https://github.com/godlygeek/tabular'
-" Строка состояния
-Plug 'https://github.com/vim-airline/vim-airline'
-" Улучшает подсветку синтаксиса python
-Plug 'https://github.com/vim-python/python-syntax'
-" Тема
-Plug 'https://github.com/joshdick/onedark.vim'
-" Браузер
-Plug 'https://github.com/preservim/nerdtree'
-" Вкладки
-Plug 'https://github.com/bagrat/vim-buffet'
-" Color
-" Plug 'https://github.com/chriskempson/base16-vim'
-"Python
-" Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
-" Translate
-Plug 'https://github.com/voldikss/vim-translator'
+" === Основные настройки ===
+set nocompatible            " Отключение совместимости с Vi
+filetype plugin indent on   " Включение автоопределения типов файлов, плагинов и отступов
+syntax enable               " Включение подсветки синтаксиса
+set encoding=utf-8          " Установка кодировки UTF-8
+set tabstop=2               " Установка размера табуляции в 2 пробела (для JS/HTML/CSS)
+set shiftwidth=2            " Установка размера сдвига в 2 пробела
+set softtabstop=2           " Установка размера "мягких" табов в 2 пробела
+set expandtab               " Замена табов на пробелы
+set autoindent              " Включение автоотступов
+set smartindent             " Включение умных отступов
+set number                  " Включение нумерации строк
+set relativenumber          " Включение относительной нумерации строк
+" Включение поддержки сворачивания кода
+set foldenable
+set foldmethod=syntax  " Использование синтаксиса для сворачивания кода
+set foldlevelstart=99  " Не сворачивать код автоматически при открытии файла
+inoremap jk <Esc>            " Сочетание клавиш jk для выхода из режима вставки
+set cursorline              " Подсветка текущей строки
+set showmatch               " Подсветка парных скобок
+set ignorecase              " Игнорирование регистра при поиске
+set smartcase               " Умный поиск (если есть заглавные буквы, поиск становится регистрозависимым)
+set incsearch               " Поиск по мере ввода
+set hlsearch                " Подсветка результатов поиска
+set mouse=a                 " Включение поддержки мыши
+set clipboard=unnamedplus   " Использование системного буфера обмена (требует +clipboard)
+set splitright              " Открытие новых окон справа
+set splitbelow              " Открытие новых окон снизу
+set hidden                  " Переключение между буферами без сохранения
+set nowrap                  " Отключение переноса строк
+set scrolloff=5             " Прокрутка за курсором
+set termguicolors           " Поддержка 24-битных цветов (для Neovim)
+
+" === Плагины (используем vim-plug) ===
+call plug#begin('~/.vim/plugged')
+
+" Автодополнение (LSP + snippets)
+Plug 'neoclide/coc.nvim', {'branch': 'release'}  " LSP-клиент
+Plug 'honza/vim-snippets'                       " Сниппеты
+
+" Языковая поддержка
+Plug 'pangloss/vim-javascript'                  " Поддержка JavaScript
+Plug 'maxmellon/vim-jsx-pretty'                 " Поддержка React JSX
+Plug 'leafgarland/typescript-vim'               " Поддержка TypeScript
+Plug 'posva/vim-vue'                            " Поддержка Vue.js
+Plug 'othree/html5.vim'                         " Поддержка HTML5
+Plug 'hail2u/vim-css3-syntax'                   " Поддержка CSS3
+Plug 'ap/vim-css-color'                         " Подсветка цветов в CSS
+Plug 'python-mode/python-mode', {'for': 'python'} " Поддержка Python
+Plug 'tweekmonster/django-plus.vim'             " Поддержка Django
+Plug 'plasticboy/vim-markdown'                  " Поддержка Markdown
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }  " Превью Markdown
+Plug 'ctrlpvim/ctrlp.vim'                      " Поиск файлов
+Plug 'styled-components/vim-styled-components', { 'branch': 'main' } " Поддержка Styled Components
+Plug 'voldikss/vim-translator'                  " Переводчик
+Plug 'MattesGroeger/vim-bookmarks'              " Закладки
+
+" Инструменты разработчика
+Plug 'preservim/nerdtree'                      " Файловый менеджер
+Plug 'Xuyuanp/nerdtree-git-plugin'             " Git-статус в NERDTree
+Plug 'tpope/vim-commentary'                    " Комментирование кода
+Plug 'tpope/vim-surround'                      " Обрамление текста
+Plug 'tpope/vim-fugitive'                      " Git-интеграция
+Plug 'airblade/vim-gitgutter'                  " Изменения Git в гутере
+Plug 'vim-airline/vim-airline'                 " Статусная строка
+Plug 'vim-airline/vim-airline-themes'          " Темы для airline
+Plug 'ryanoasis/vim-devicons'                  " Иконки файлов (требует Nerd Fonts)
+Plug 'easymotion/vim-easymotion'               " Быстрое перемещение по файлу
+
+" Цветовые схемы
+Plug 'morhetz/gruvbox'                         " Цветовая схема Gruvbox
+Plug 'joshdick/onedark.vim'                    " Цветовая схема One Dark
+Plug 'dracula/vim', { 'as': 'dracula' }       " Цветовая схема Dracula
+
 call plug#end()
 
-set encoding=UTF-8
+" === Настройка цветовой схемы ===
+colorscheme gruvbox
+set background=dark
 
+" === Настройка Coc.nvim (LSP) ===
+let g:coc_global_extensions = [
+  \ 'coc-tsserver',
+  \ 'coc-json',
+  \ 'coc-html',
+  \ 'coc-css',
+  \ 'coc-python',
+  \ 'coc-markdownlint',
+  \ 'coc-snippets',
+  \ 'coc-prettier',
+  \ 'coc-eslint'
+  \ ]
 
-" VIM-ANYFOLD
-filetype plugin indent on " required
-syntax on                 " required
-autocmd Filetype * AnyFoldActivate               " activate for all filetypes
-" or
-autocmd Filetype <your-filetype> AnyFoldActivate " activate for a specific filetype
-set foldlevel=0  " close all folds
-" or
-set foldlevel=99 " Open all folds
+" Автодополнение по Tab
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
+" Enter для подтверждения автодополнения
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
 
+" === Настройки языков ===
+" JavaScript / React
+let g:javascript_plugin_jsdoc = 1
+let g:jsx_ext_required = 0  " Разрешить JSX в .js файлах
 
-" INDENTlINE
-" Vim
-" let g:indentLine_color_term = 239
-" GVim
-" let g:indentLine_color_gui = '#A4E57E'
-" none X terminal
-" let g:indentLine_color_tty_light = 7 " (default: 4)
-" let g:indentLine_color_dark = 1 " (default: 2)
-" Background (Vim, GVim)
-" let g:indentLine_bgcolor_term = 202
-" let g:indentLine_bgcolor_gui = '#FF5F00'
-
-
-
-" CTRLP
-let g:ctrlp_working_path_mode = '/home/grachev'
-
-
-
-
-" VIM-EASYMOTION
-" <Leader>f{char} to move to {char}
-map  <Leader>f <Plug>(easymotion-bd-f)
-nmap <Leader>f <Plug>(easymotion-overwin-f)
-
-" s{char}{char} to move to {char}{char}
-nmap s <Plug>(easymotion-overwin-f2)
-
-" Move to line
-map <Leader>L <Plug>(easymotion-bd-jk)
-nmap <Leader>L <Plug>(easymotion-overwin-line)
-
-" Move to word
-map  <Leader>w <Plug>(easymotion-bd-w)
-nmap <Leader>w <Plug>(easymotion-overwin-w)
-
-
-
-" PYTHON-SYNTAX
-let g:python_highlight_all = 1
-
-
-
-" ТЕМА
-syntax on
-" set termguicolors
-" color base16-solarized-dark
-
-
-
-" ПРОСТЫЕ НАСТРОЙКМ
-set nobackup                                                                    
-set noswapfile                                                                  
-set nowrap
-" включить подсветку синтаксиса
-syntax enable
-" установить tab равным 4 пробелам
-set ts=4
-" отступ при переходе на следующую строку при написании кода
-set autoindent
-" преобразование tab-ов в пробелы
-set expandtab
-" при использовании команд >> или << сдвигать строки на 4 пробела
-set shiftwidth=4
-" Отступы и настройка строк
-set expandtab
-set smarttab
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-set ignorecase
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-
-" ВКЛАДКИ
-nmap <leader>1 <Plug>BuffetSwitch(1)
-nmap <leader>2 <Plug>BuffetSwitch(2)
-nmap <leader>3 <Plug>BuffetSwitch(3)
-nmap <leader>4 <Plug>BuffetSwitch(4)
-nmap <leader>5 <Plug>BuffetSwitch(5)
-nmap <leader>6 <Plug>BuffetSwitch(6)
-nmap <leader>7 <Plug>BuffetSwitch(7)
-nmap <leader>8 <Plug>BuffetSwitch(8)
-nmap <leader>9 <Plug>BuffetSwitch(9)
-nmap <leader>0 <Plug>BuffetSwitch(10)
-
-" Note: Make sure the function is defined before `vim-buffet` is loaded.
-function! g:BuffetSetCustomColors()
-  hi! BuffetCurrentBuffer cterm=NONE ctermbg=5 ctermfg=8 guibg=#00FF00 guifg=#000000
-endfunction
-
-map <C-l> :bn<CR>
-map <C-h> :bp<CR>
-
-" ГОРЯЧИЕ КЛАВИШИ
-map <leader>mi :set conceallevel=1 <Enter>
-map <leader>mv :set conceallevel=0 <Enter>
-map <F2> :e /home/grachev/disk/notes/ <Enter>
-inoremap jk <Esc>
-
-" NERDTREE
-" NerdTree настройки
-" показать NERDTree на F3
-map <C-n> :NERDTreeToggle<CR>
-"игноррируемые файлы с расширениями
-let NERDTreeIgnore=['\~$', '\.pyc$', '\.pyo$', '\.class$', 'pip-log\.txt$', '\.o$']  
-
-
-
-" СКОБКИ
-let g:rainbow_active = 1
-
-let g:rainbow_load_separately = [
-    \ [ '*' , [['(', ')'], ['\[', '\]'], ['{', '}']] ],
-    \ [ '*.tex' , [['(', ')'], ['\[', '\]']] ],
-    \ [ '*.cpp' , [['(', ')'], ['\[', '\]'], ['{', '}']] ],
-    \ [ '*.{html,htm}' , [['(', ')'], ['\[', '\]'], ['{', '}'], ['<\a[^>]*>', '</[^>]*>']] ],
-    \ ]
-
-let g:rainbow_guifgs = ['RoyalBlue3', 'DarkOrange3', 'DarkOrchid3', 'FireBrick']
-let g:rainbow_ctermfgs = ['lightblue', 'lightgreen', 'yellow', 'red', 'magenta']
-
-
-
-
-" PYTHON-MODE SETTINGS
-" отключаем автокомплит по коду (у нас вместо него используется jedi-vim)
-let g:pymode_rope = 0
-let g:pymode_rope_completion = 0
-let g:pymode_rope_complete_on_dot = 0
-
-" документация
-let g:pymode_doc = 0
-let g:pymode_doc_key = 'K'
-" проверка кода
-let g:pymode_lint = 1
-let g:pymode_lint_checker = "pyflakes,pep8"
-let g:pymode_lint_ignore="E501,W601,C0110"
-" провека кода после сохранения
-let g:pymode_lint_write = 1
-
-" поддержка virtualenv
-let g:pymode_virtualenv = 1
-
-" установка breakpoints
-let g:pymode_breakpoint = 1
-let g:pymode_breakpoint_key = '<leader>b'
-
-" подстветка синтаксиса
+" Python
+let g:pymode_python = 'python3'
+let g:pymode_rope = 1
+let g:pymode_rope_completion = 1
 let g:pymode_syntax = 1
-let g:pymode_syntax_all = 1
-let g:pymode_syntax_indent_errors = g:pymode_syntax_all
-let g:pymode_syntax_space_errors = g:pymode_syntax_all
+let g:pymode_lint = 1
+let g:pymode_lint_on_write = 1
 
-" отключить autofold по коду
-let g:pymode_folding = 0
+" Markdown
+let g:vim_markdown_folding_disabled = 1
+let g:mkdp_browser = 'firefox'  " Превью в Firefox
 
-" возможность запускать код
-let g:pymode_run = 0
+" === Горячие клавиши ===
+nnoremap <C-n> :NERDTreeToggle<CR>       " Открыть/закрыть NERDTree
+nnoremap <leader>ff :Files<CR>          " Поиск файлов (требует fzf)
+nnoremap <leader>gd :CocDiagnostics<CR> " Диагностика LSP
+nnoremap <silent> K :call ShowDocumentation()<CR>
+nnoremap <leader>rn :CocRename<CR>      " Переименование (LSP)
+nnoremap <leader>fm :CocCommand prettier.formatFile<CR> " Форматирование
 
+let g:coc_enable_hover = 1
+let g:coc_disable_transparent_cursor = 1  " Фикс для некоторых терминалов
+autocmd CursorHold * silent call CocActionAsync('highlight')  " Поддержка подсветки
+let g:coc_hover_delay = 500  " В миллисекундах
 
+" === Дополнительно ===
+" Автоформатирование при сохранении
+autocmd BufWritePre *.js,*.jsx,*.ts,*.tsx,*.html,*.css,*.json,*.py,*.md :call CocAction('format')
+
+" Автозакрытие тегов HTML/JSX
+let g:closetag_filenames = '*.html,*.xhtml,*.jsx,*.tsx'
+
+" === CTRLP ===
+" Включает кеширование для ускорения работы
+let g:ctrlp_cache_dir = '~/.cache/ctrlp'
+
+" Игнорировать файлы из .gitignore
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+
+" Поиск по имени файла (а не по пути)
+let g:ctrlp_by_filename = 1
+
+" Клавиши для управления
+nmap <C-p> :CtrlP<CR>       " Открыть поиск по файлам
+nmap <C-b> :CtrlPBuffer<CR> " Поиск по открытым буферам
+nmap <C-m> :CtrlPMRU<CR>    " Поиск по недавним файлам
+
+" === vim-translator ===
 " Translate
 let g:translator_target_lang = 'en'
 nmap <silent> <Leader>t <Plug>TranslateR
 vmap <silent> <Leader>t <Plug>TranslateRV
+
+" === vim-bookmarks ===
+" Включить значки закладок на полях
+let g:bookmark_sign = '⚑'
+let g:bookmark_highlight_lines = 1
+
+" Автосохранение закладок
+let g:bookmark_save_per_working_dir = 1
+let g:bookmark_auto_save = 1
+
+" Свои маппинги
+nmap <Leader>mm <Plug>BookmarkToggle
+nmap <Leader>mi <Plug>BookmarkAnnotate
+nmap <Leader>ma <Plug>BookmarkShowAll
+
+" === Настройки Coc.nvim ===
+set encoding=utf-8
+set nobackup
+set nowritebackup
+
+set updatetime=300
+
+set signcolumn=yes
+
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() :
+                              \ "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+nmap <silent><nowait> [g <Plug>(coc-diagnostic-prev)
+nmap <silent><nowait> ]g <Plug>(coc-diagnostic-next)
+
+nmap <silent><nowait> gd <Plug>(coc-definition)
+nmap <silent><nowait> gy <Plug>(coc-type-definition)
+nmap <silent><nowait> gi <Plug>(coc-implementation)
+nmap <silent><nowait> gr <Plug>(coc-references)
+
+nnoremap <silent> K :call ShowDocumentation()<CR>
+
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
+
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+nmap <leader>rn <Plug>(coc-rename)
+
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+augroup end
+
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+nmap <leader>ac  <Plug>(coc-codeaction-cursor)
+nmap <leader>as  <Plug>(coc-codeaction-source)
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+nmap <silent> <leader>re <Plug>(coc-codeaction-refactor)
+xmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
+nmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
+
+nmap <leader>cl  <Plug>(coc-codelens-action)
+
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
+
+if has('nvim-0.4.0') || has('patch-8.2.0750')
+  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+endif
+
+nmap <silent> <C-s> <Plug>(coc-range-select)
+xmap <silent> <C-s> <Plug>(coc-range-select)
+
+command! -nargs=0 Format :call CocActionAsync('format')
+
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
+
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
